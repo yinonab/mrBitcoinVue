@@ -10,9 +10,11 @@ export const dbService = {
     post,
     put,
     insert,
+    getName
 }
 
 const ID_FIELD = '_id'
+const NAME_FIELD = 'name'
 
 async function query(collectionName) {
     var collection = storageService.load(collectionName)
@@ -23,6 +25,10 @@ async function query(collectionName) {
 async function get(collectionName, id) {
     var collection = await query(collectionName)
     return collection.find(curr => curr[ID_FIELD] === id)
+}
+async function getName(collectionName, name) {
+    var collection = await query(collectionName)
+    return collection.find(curr => curr[NAME_FIELD] === name)
 }
 
 async function remove(collectionName, id) {

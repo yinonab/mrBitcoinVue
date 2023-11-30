@@ -1,24 +1,42 @@
-<script setup>
-import AppHeader from './pages/cmps/AppHeader.vue';
+<script>
+import AppHeader from "./cmps/AppHeader.vue"
+import AppFooter from './cmps/AppFooter.vue';
+import UserMsg from './cmps/UseMsg.vue'
+export default {
+  components: {
+    AppHeader,
+    AppFooter,
+    UserMsg,
+  }
+}
 </script>
 
 <template>
-  <header>
-
-
-
-    <!-- <nav>
-        <RouterLink to="/contact">Contact</RouterLink>
-        <RouterLink to="/">Home</RouterLink> -->
-    <!-- <RouterLink to="/about">About</RouterLink>  -->
-    <!-- </nav> -->
-  </header>
+  <Transition>
+        <UserMsg />
+    </Transition>
   <AppHeader />
-  <RouterView />
+  <main>
+    <RouterView />
+  </main>
+  <AppFooter />
 </template>
 
 <style scoped>
-header {
+main {
+  min-height: 87.59vh;
+}
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
+/* header {
   line-height: 1.5;
   max-height: 100vh;
 }
@@ -51,7 +69,7 @@ nav a {
 
 nav a:first-of-type {
   border: 0;
-}
+} */
 
 /* @media (min-width: 1024px) {
   header {

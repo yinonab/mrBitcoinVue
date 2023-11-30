@@ -1,9 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import Home from '../pages/Home.vue'
 import ContactIndex from '../pages/ContactIndex.vue'
+import ContactDetails from '../pages/ContactDetails.vue'
+import contactEdit from '../pages/contactEdit.vue'
 
 const routerOptions={
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
@@ -14,6 +16,16 @@ const routerOptions={
       path: '/contact',
       name: 'contact',
       component: ContactIndex
+    },
+    {
+      path: '/contact/:contactId',
+      name: 'contactDetails',
+      component: ContactDetails
+    },
+    {
+      path: '/contact/edit/:contactId?',
+      name: 'contactEdit',
+      component: contactEdit
     },
     {
       path: '/about',
