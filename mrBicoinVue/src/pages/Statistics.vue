@@ -93,5 +93,10 @@
   .bar{
     margin-top: 5em;
   }
+  @media (max-width: 600px) {
+    .container{
+        width: 350px; 
+    }
+}
   </style>
   
