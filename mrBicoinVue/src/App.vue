@@ -2,25 +2,33 @@
 import AppHeader from "./cmps/AppHeader.vue"
 import AppFooter from './cmps/AppFooter.vue';
 import UserMsg from './cmps/UseMsg.vue'
+import Statistics from "./pages/Statistics.vue";
+
 export default {
   components: {
     AppHeader,
     AppFooter,
     UserMsg,
+    Statistics,
   }
 }
 </script>
 
+
 <template>
-  <Transition>
-        <UserMsg />
+  <div id="app">
+    <Transition>
+      <UserMsg />
     </Transition>
-  <AppHeader />
-  <main>
-    <RouterView />
-  </main>
-  <AppFooter />
+    <AppHeader />
+    <main>
+      <!-- <Statistics /> -->
+      <RouterView />
+    </main>
+    <AppFooter />
+  </div>
 </template>
+
 
 <style scoped>
 main {

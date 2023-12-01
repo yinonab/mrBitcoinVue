@@ -4,7 +4,7 @@
         <nav>
         <RouterLink to="/contact">Contact</RouterLink> |
         <RouterLink to="/">Home</RouterLink> |
-        <!-- <RouterLink to="/about">About</RouterLink>  -->
+        <RouterLink to="/statistics">Statistics</RouterLink> |
       </nav>
     </header>
 </template>
