@@ -79,7 +79,7 @@
               label: data.name,
               backgroundColor: colorConfig.backgroundColor,
               borderColor: colorConfig.borderColor,
-              borderWidth: 1,
+              borderWidth: 7,
               data: data.values.map(entry => entry.y)
             }
           ]
@@ -115,7 +115,7 @@
                 'rgba(153, 102, 255, 1)'
                 // Add more colors if needed for different segments
               ],
-              borderWidth: 1,
+              borderWidth: 5,
               data: data.values.map(entry => entry.y)
             }
           ]
