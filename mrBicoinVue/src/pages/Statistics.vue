@@ -6,6 +6,7 @@
   
       <!-- Display Pie chart -->
       <Pie v-if="loaded.pieChart" :data="chartData.pieChart" :options="chartOptions" />
+      <img v-else src="../assets/puff.svg" alt="" class="loader">
     </div>
   </template>
   

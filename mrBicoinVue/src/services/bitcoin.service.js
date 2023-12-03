@@ -30,20 +30,20 @@ export const bitcoinService = {
             if (data) {
                 data = JSON.parse(data)
                 if (data.marketPriceHistory) {
-                    // Extract the first 20 values from the stored data
-                    const first20Values = data.marketPriceHistory.values.slice(0, 20)
-                    return { ...data.marketPriceHistory, values: first20Values }
+                    // Extract the first 50 values from the stored data
+                    const first50Values = data.marketPriceHistory.values.slice(0, 50)
+                    return { ...data.marketPriceHistory, values: first50Values }
                 }
             }
     
             const response = await axios.get('https://api.blockchain.info/charts/market-price?timespan=5months&format=json&cors=true')
             console.log('Market Price History Response:', response.data) // Log the response data
     
-            // Store only the first 20 values in localStorage
-            const first20Values = response.data.values.slice(0, 20)
-            localStorage.setItem(KEY, JSON.stringify({ ...data, marketPriceHistory: { ...response.data, values: first20Values } }))
+            // Store only the first 50 values in localStorage
+            const first50Values = response.data.values.slice(0, 50)
+            localStorage.setItem(KEY, JSON.stringify({ ...data, marketPriceHistory: { ...response.data, values: first50Values } }))
             
-            return { ...response.data, values: first20Values }
+            return { ...response.data, values: first50Values }
         } catch (error) {
             console.error('Error fetching market price history:', error)
             return null

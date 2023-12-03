@@ -15,7 +15,7 @@
     </div>
   </div>
   <div v-else>
-    <p>Loading...</p> <!-- Show loading state -->
+    <img src="../assets/puff.svg" alt="" class="loader">
   </div>
 </main>
 </template>
