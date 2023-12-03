@@ -1,12 +1,12 @@
 <template>
-    <h1>
-        contact edit
-    </h1>
-    <section v-if="contact" class="contact-edit">
-        <form @submit.prevent="onSaveContact">
-         Name:   <input v-model="contact.name" type="text" autofocus>
-       Email:     <input v-model="contact.email" type="text">
-        Phone:    <input v-model="contact.phone" type="text">
+    <section v-if="contact"   class="contact-edit">
+       <h2 class="title">
+            {{displayTitle}}
+        </h2>
+        <form class="title" @submit.prevent="onSaveContact">
+            Name: <input v-model="contact.name" type="text" autofocus>
+            Email: <input v-model="contact.email" type="text">
+            Phone: <input v-model="contact.phone" type="text">
             <button>Save</button>
         </form>
     </section>
@@ -50,16 +50,21 @@ export default {
             this.contact = contactService.getEmptyContact()
         }
 
+    },
+    computed:{
+        displayTitle(){
+            return this.contact._id? `Edit ${this.contact.name}`: 'Add new Contact' 
+        }
     }
 }
 </script>
 
 <style lang="scss">
-h1 {
-    font-size: 2em;
+.title {
+    font-size: 1.5em;
     margin-bottom: 20px;
-    color: #fff;
-    /* Set text color to white to match the header */
+    color: #0b0b0b;
+    /* Change text color to match the header */
 }
 
 .contact-edit {
@@ -116,4 +121,5 @@ h1 {
     height: 100px;
     margin: 50px auto;
     display: block;
-}</style>
+}
+</style>

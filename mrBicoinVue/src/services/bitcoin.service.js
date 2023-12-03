@@ -57,14 +57,16 @@ export const bitcoinService = {
             if (data) {
                 data = JSON.parse(data)
                 if (data.avgBlockSize) {
-                    return data.avgBlockSize
+                    const first50Values=data.avgBlockSize.values.slice(0,50)
+                    return {...data.avgBlockSize,values:first50Values}
                 }
             }
             
             const response = await axios.get('https://api.blockchain.info/charts/avg-block-size?timespan=5months&format=json&cors=true')
-            localStorage.setItem(KEY, JSON.stringify({ ...data, avgBlockSize: response.data }))
+            const first50Values=data.avgBlockSize.values.slice(0,50)
+            localStorage.setItem(KEY, JSON.stringify({ ...data, avgBlockSize: {...response.data,values: first50Values}}))
             console.log('response.data:', response.data)
-            return response.data
+            return {...response.data,values: first50Values}
         } catch (error) {
             console.error('Error fetching average block size:', error)
             return null
