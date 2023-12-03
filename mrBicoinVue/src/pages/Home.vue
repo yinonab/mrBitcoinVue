@@ -1,7 +1,8 @@
 <template>
   <main class="container">
   <div class="info" v-if="!loading"> <!-- Show content when not loading -->
-    <div class="coin">
+    <div class="coind">
+      <img class="photo" v-bind:src="imgUrl()" alt="user-img"> 
       <p><b>Hello</b> {{ user ? user.name : '' }}</p> <!-- Display user's name if available -->
      
     </div>
@@ -52,7 +53,10 @@ export default {
         console.error('Error fetching user coins or rate:', error);
         this.loading = false;
       }
-    }
+    },
+    imgUrl() {
+            return `https://robohash.org/${this.user._id}?set=set5`
+        }
   }
 };
 </script>
@@ -92,6 +96,10 @@ p {
   &>* {
     margin-bottom: 20px;
   }
+}
+.photo {
+    width: 100px;
+    height: 100px;
 }
 
 /* Styles for app-contact-page and app-statistic-page components (assuming these are custom components) */

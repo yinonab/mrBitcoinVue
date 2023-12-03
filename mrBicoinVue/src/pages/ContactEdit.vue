@@ -4,9 +4,9 @@
     </h1>
     <section v-if="contact" class="contact-edit">
         <form @submit.prevent="onSaveContact">
-            <input v-model="contact.name" type="text" autofocus>
-            <input v-model="contact.email" type="text">
-            <input v-model="contact.phone" type="text">
+         Name:   <input v-model="contact.name" type="text" autofocus>
+       Email:     <input v-model="contact.email" type="text">
+        Phone:    <input v-model="contact.phone" type="text">
             <button>Save</button>
         </form>
     </section>
