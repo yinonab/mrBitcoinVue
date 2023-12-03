@@ -1,12 +1,12 @@
 <template>
-    <h1>
-        contact edit
-    </h1>
-    <section v-if="contact" class="contact-edit">
-        <form @submit.prevent="onSaveContact">
-            <input v-model="contact.name" type="text" autofocus>
-            <input v-model="contact.email" type="text">
-            <input v-model="contact.phone" type="text">
+    <section v-if="contact"   class="contact-edit">
+       <h2 class="title">
+            {{displayTitle}}
+        </h2>
+        <form class="title" @submit.prevent="onSaveContact">
+            Name: <input v-model="contact.name" type="text" autofocus>
+            Email: <input v-model="contact.email" type="text">
+            Phone: <input v-model="contact.phone" type="text">
             <button>Save</button>
         </form>
     </section>
@@ -25,84 +25,101 @@ export default {
     methods: {
         async onSaveContact() {
             const isUpdate = !!this.$route.params.contactId
-            await contactService.save(this.contact)
+            // await contactService.save(this.contact)
+            try {
+                await this.$store.dispatch({ type: 'saveContact', contact: this.contact })
+                if (isUpdate) {
+                    eventBus.emit('user-msg', 'Contact Updated')
+                } else {
+                    eventBus.emit('user-msg', 'Contact Saved')
+                }
+            } catch (err) {
+                eventBus.emit('user-msg', `Contact couldn't Saved`)
 
-            if(isUpdate){
-                eventBus.emit('user-msg', 'Contact Updated')
-            } else {
-                eventBus.emit('user-msg', 'Contact Saved')
             }
+
+
             this.$router.push('/contact')
         }
     },
-    async created(){
-        const contactId =this.$route.params.contactId
+    async created() {
+        const contactId = this.$route.params.contactId
         if (contactId) {
             this.contact = await contactService.get(contactId)
-        }else{
+        } else {
             this.contact = contactService.getEmptyContact()
         }
 
+    },
+    computed:{
+        displayTitle(){
+            return this.contact._id? `Edit ${this.contact.name}`: 'Add new Contact' 
+        }
     }
 }
 </script>
 
 <style lang="scss">
-h1 {
-  font-size: 2em;
-  margin-bottom: 20px;
-  color: #fff; /* Set text color to white to match the header */
+.title {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #0b0b0b;
+    /* Change text color to match the header */
 }
 
 .contact-edit {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #34495e; /* Use the header's background color */
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  widows: 50em;
-  margin-left: 10%;
-  margin-right: 10%;
-
-  form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 40%;
+    justify-content: center;
+    background-color: #34495e;
+    /* Use the header's background color */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    widows: 50em;
+    margin-left: 10%;
+    margin-right: 10%;
 
-    input {
-      margin-bottom: 15px;
-      padding: 10px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      width: 100%;
-      box-sizing: border-box;
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 40%;
+
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #007bff;
+            /* Use the header's button color */
+            color: #fff;
+            /* Set text color to white */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: #0056b3;
+                /* Darken the button on hover */
+            }
+        }
     }
-
-    button {
-      padding: 10px 20px;
-      font-size: 1em;
-      background-color: #007bff; /* Use the header's button color */
-      color: #fff; /* Set text color to white */
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-
-      &:hover {
-        background-color: #0056b3; /* Darken the button on hover */
-      }
-    }
-  }
 }
 
 .loader {
-  width: 100px;
-  height: 100px;
-  margin: 50px auto;
-  display: block;
+    width: 100px;
+    height: 100px;
+    margin: 50px auto;
+    display: block;
 }
 </style>
