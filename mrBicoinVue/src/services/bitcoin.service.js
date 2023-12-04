@@ -30,20 +30,20 @@ export const bitcoinService = {
             if (data) {
                 data = JSON.parse(data)
                 if (data.marketPriceHistory) {
-                    // Extract the first 50 values from the stored data
-                    const first50Values = data.marketPriceHistory.values.slice(0, 50)
-                    return { ...data.marketPriceHistory, values: first50Values }
+                    // Extract the first 20 values from the stored data
+                    const first20Values = data.marketPriceHistory.values.slice(0, 20)
+                    return { ...data.marketPriceHistory, values: first20Values }
                 }
             }
     
             const response = await axios.get('https://api.blockchain.info/charts/market-price?timespan=5months&format=json&cors=true')
             console.log('Market Price History Response:', response.data) // Log the response data
     
-            // Store only the first 50 values in localStorage
-            const first50Values = response.data.values.slice(0, 50)
-            localStorage.setItem(KEY, JSON.stringify({ ...data, marketPriceHistory: { ...response.data, values: first50Values } }))
+            // Store only the first 20 values in localStorage
+            const first20Values = response.data.values.slice(0, 20)
+            localStorage.setItem(KEY, JSON.stringify({ ...data, marketPriceHistory: { ...response.data, values: first20Values } }))
             
-            return { ...response.data, values: first50Values }
+            return { ...response.data, values: first20Values }
         } catch (error) {
             console.error('Error fetching market price history:', error)
             return null
@@ -57,16 +57,16 @@ export const bitcoinService = {
             if (data) {
                 data = JSON.parse(data)
                 if (data.avgBlockSize) {
-                    const first50Values=data.avgBlockSize.values.slice(0,50)
-                    return {...data.avgBlockSize,values:first50Values}
+                    const first20Values = data.avgBlockSize.values.slice(0, 20)
+                    return { ...data.avgBlockSize, values: first20Values }
                 }
             }
             
             const response = await axios.get('https://api.blockchain.info/charts/avg-block-size?timespan=5months&format=json&cors=true')
-            const first50Values=data.avgBlockSize.values.slice(0,50)
-            localStorage.setItem(KEY, JSON.stringify({ ...data, avgBlockSize: {...response.data,values: first50Values}}))
+            const first20Values = response.data.values.slice(0, 20)
+            localStorage.setItem(KEY, JSON.stringify({ ...data, avgBlockSize: { ...response.data, values: first20Values } }))
             console.log('response.data:', response.data)
-            return {...response.data,values: first50Values}
+            return { ...response.data, values: first20Values }
         } catch (error) {
             console.error('Error fetching average block size:', error)
             return null
