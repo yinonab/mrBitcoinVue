@@ -6,32 +6,63 @@
             <h2> <b> Name: </b>{{ contact.name }}</h2>
             <h2><b>Phone: </b>{{ contact.phone }}</h2>
             <h2><b>Balance: </b>{{ contact.balance }}</h2>
-            <h2 class="email"> <b> Email: </b>{{ contact.email }}</h2>
+            <h2> <b> Email: </b></h2><h2 class="email">{{ contact.email }}</h2>
 
             <RouterLink to="/contact">
                 <button>Back</button>
             </RouterLink>
         </main>
+        <div v-if="user.transactions && user.transactions.length > 0">
+            <transactions-list :transactions="filteredTransactions"></transactions-list>
+        </div>
     </section>
     <img v-else src="../assets/puff.svg" alt="" class="loader">
 </template>
 
 <script>
 import { contactService } from '../services/contact.service';
+import { userService } from '../services/user.service';
+import TransactionsList from '../cmps/TransactionsList.vue'
+
 export default {
     data() {
         return {
             contact: null,
+            user: null,
+            transactions: []
         }
     },
     methods: {
         imgUrl() {
             return `https://robohash.org/${this.contact._id}?set=set5`
+        },
+        async getUser() {
+            return this.user = await userService.getLoggedInUser()
+        },
+        getTransactions() {
+            if (this.user && this.user.transactions) {
+                this.transactions = this.user.transactions;
+            }
+        },
+        getMyTransactions() {
+            return this.filteredTransactions
+        }
+    },
+    computed: {
+        filteredTransactions() {
+            return this.transactions.filter(transaction => transaction.to === this.contact.name);
         }
     },
     async created() {
+        await this.getUser()
         const contactId = this.$route.params.contactId
         this.contact = await contactService.get(contactId)
+        this.getTransactions()
+        this.getMyTransactions()
+        console.log('this.transactions', this.transactions)
+    },
+    components: {
+        TransactionsList,
     }
 
 }
@@ -64,8 +95,9 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        padding-bottom: 15px;
 
-        
+
 
         h2 {
             font-size: 1.5em;
@@ -86,6 +118,7 @@ export default {
             cursor: pointer;
             transition: background-color 0.3s ease;
 
+
             &:hover {
                 background-color: #0056b3;
                 /* Darken the button on hover */
@@ -93,14 +126,15 @@ export default {
         }
     }
 }
-@media (max-width: 600px) {
-            .main-details {
-                .email {
-                    font-size: 1.3em !important;
-                }
-            }
 
-        }
+// @media (max-width: 600px) {
+//     .main-details {
+//         .email {
+//             font-size: 1.2em ;
+//         }
+//     }
+
+// }
 
 
 .loader {

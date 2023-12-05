@@ -2,8 +2,7 @@ import { contactService } from "../../services/contact.service"
 
 export default {
     strict: true,
-    state(
-    ) {
+    state() {
         return {
             contacts: null,
         }

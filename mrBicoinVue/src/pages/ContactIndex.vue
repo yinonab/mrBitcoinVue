@@ -1,7 +1,7 @@
 <template>
     <section class="contact-index">
         <ContactFilter @filter="setFilterBy" />
-        <RouterLink to="contact/edit">
+        <RouterLink to="/edit">
             <button>Add a Contact</button>
         </RouterLink>
         <ContactList @remove="removeContact" v-if="contacts" :contacts="filterContacts" />

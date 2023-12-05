@@ -1,5 +1,6 @@
 <template>
     <ul class="contact-list">
+        <TransitionGroup name="list" tag="ul">
         <li v-for="contact in contacts" :key=contact._id>
             <contactPreview :contact="contact" />
             <section class="active">
@@ -7,14 +8,18 @@
                 <RouterLink :to="`/contact/${contact._id}`">
                     <button>👁</button>
                 </RouterLink>
-                <RouterLink :to="`/contact/edit/${contact._id}`">
+                <RouterLink :to="`/edit/${contact._id}`">
                     <button>📝</button>
+                </RouterLink>
+                <RouterLink :to="`/contact/transfer/${contact._id}`">
+                    <button>💵</button>
                 </RouterLink>
             </section>
         </li>
-
-
-    </ul>
+    </TransitionGroup>
+    
+</ul>
+<RouterView />
 </template>
 
 <script>
@@ -31,6 +36,7 @@ export default {
             this.$emit('remove', contactId)
         }
     },
+    emits: ['remove'],
     components: {
         ContactPreview,
     }
@@ -38,7 +44,7 @@ export default {
 </script>
 
 <style lang="scss">
-.contact-list {
+ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -92,6 +98,24 @@ export default {
 }
 
 /* Ensure leaving items are taken out of layout flow */
+.list-leave-active {
+    position: absolute;
+}
+.list-move,
+/* apply transition to moving elements */
+.list-enter-active,
+.list-leave-active {
+    transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
 .list-leave-active {
     position: absolute;
 }

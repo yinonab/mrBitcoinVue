@@ -1,8 +1,10 @@
 'use strict'
 
 import { dbService } from './db.service.js'
+import { storageService } from './storage.service.js'
 
 const KEY = 'users'
+const LOGGEDIN_USER = 'loggedinuser'
 
 export const userService = {
     query,
@@ -10,6 +12,8 @@ export const userService = {
     remove,
     save,
     getEmptyUser,
+    getLoggedInUser,
+    saveLoggedInUser
 }
 
 async function query() {
@@ -33,18 +37,34 @@ async function remove(id) {
 }
 
 async function save(user) {
+    console.log('user', user)
     if (user._id) return await dbService.put(KEY, user)
-    else return await dbService.post(KEY, user)
+    else {
+        const savedUser = await dbService.post(KEY, user)
+        userService.saveLoggedInUser(savedUser)
+    }
+    return user
+
 }
 
 function getEmptyUser() {
     return {
         name: '',
-        balance: 0,
+        balance: 100,
         transactions: [],
-        
+
 
     }
+}
+function saveLoggedInUser(user) {
+    console.log('user', user)
+    storageService.save(LOGGEDIN_USER, user)
+
+}
+function getLoggedInUser(KEY) {
+    const user = storageService.load(LOGGEDIN_USER)
+    return user
+
 }
 
 function _createDefaultUsers() {
@@ -56,9 +76,9 @@ function _createDefaultUsers() {
     ]
 }
 
-function _createUser(name, balance, transactions) {
+function _createUser(_id, name, balance, transactions) {
     return {
-        name, balance, transactions
+        _id, name, balance, transactions
     }
 
     // function _createUsers() {

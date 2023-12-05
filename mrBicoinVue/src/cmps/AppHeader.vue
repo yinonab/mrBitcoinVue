@@ -3,8 +3,9 @@
         <a href="/"><h2>MrBitcoin</h2></a>
         <nav>
         <RouterLink to="/contact"><img class="icons" src="../assets/imgs/users.png" alt=""></RouterLink> 
-        <RouterLink to="/"><img class="icons" src="../assets/imgs/home.png" alt=""></RouterLink> 
+        <RouterLink to="/home"><img class="icons" src="../assets/imgs/home.png" alt=""></RouterLink> 
         <RouterLink to="/statistics"><img class="icons" src="../assets/imgs/increase.png" alt=""></RouterLink> 
+        <RouterLink to="/signUp"><img class="icons" src="../assets/imgs/login.png" alt=""></RouterLink> 
        
       </nav>
     </header>
