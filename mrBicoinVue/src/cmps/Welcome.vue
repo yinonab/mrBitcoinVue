@@ -2,7 +2,7 @@
   <div class="container">
 
     <h1 class="wel">Welcome to BitWallet</h1>
-    <img class="wel-img" src="../assets/imgs/bitcoin.png" alt="">
+    <img class="wel-img" src="../assets/imgs/giphy.gif" alt="">
     <p>Manage your cryptocurrencies with ease!</p>
     <router-link :to="`/${getUserId}`"><button>Get Started</button></router-link>
 

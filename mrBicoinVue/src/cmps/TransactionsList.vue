@@ -54,6 +54,9 @@ export default {
 .trans-container {
     border-top: 1px solid black;
     margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     .trans-list {
         margin: 0;
@@ -61,7 +64,7 @@ export default {
         .trans {
             display: flex;
             align-items: flex-start;
-            width: 50vw;
+            // width: 50vw;
 
             .trans-title {
                 margin: 0;

@@ -1,10 +1,14 @@
 <template>
   <main class="Hcontainer">
     <div class="info" v-if="!loading"> <!-- Show content when not loading -->
-      <div class="coins">
+      <section>
+        <img src="../assets/imgs/giphy.gif" alt="">
+      </section>
+      <section>
         <img class="photo-user" v-bind:src="imgUrl()" alt="user-img">
-        <p class="ht"><b>Hello</b> {{ user ? user.name : '' }}</p> <!-- Display user's name if available -->
-
+      <div>
+      <div class="coins">
+        <p class="ht"><b>     Hello</b> {{ user ? user.name : '' }}</p> <!-- Display user's name if available -->
       </div>
       <div class="coin">
         <img src="../assets/imgs/coins.png" alt="">
@@ -14,15 +18,21 @@
         <img src="../assets/imgs/bitcoin.png" alt="">
         <p class="ht"> <b>Your Balance Rate is</b> {{ rate }}<b class="btc"> BTC</b> </p> <!-- Display the rate -->
       </div>
+    </div>
       <div v-if="user.transactions && user.transactions.length > 0">
         <transactions-list :transactions="slicedTransactions"></transactions-list>
       </div>
+      </section>
+      
+     
     </div>
-
     <div v-else>
       <img src="../assets/puff.svg" alt="" class="loader">
     </div>
   </main>
+  <article>
+    
+  </article>
 </template>
 
 <script>
@@ -91,52 +101,83 @@ export default {
 </script>
 
 <style lang="scss">
-.ht {
-  color: black;
-}
+// .ht {
+//   color: black;
+// }
 
-.info {
-  border: 1px solid black;
-  padding: 25px;
-}
 
-.coin {
-  display: flex;
-  align-items: center;
-  .btc{
-    font-size: 0.8rem;
-    font-weight: 900;
-  }
 
-  img {
-    height: 2em;
-    width: 2em;
-  }
-}
 
-p {
-  font-size: 20px;
-  margin-left: 10px;
-  font-size: 18px;
-  color: #333;
-}
 
 .Hcontainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   margin-top: 20px;
   background-color: #5d6e7f;
+  // padding-right: 1em;
+  margin-bottom: 1em;
+  .photo-user {
+        width: 15em;
+        height: 15em;
+      }
+
+  .info {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-around;
+
+    border: 1px solid black;
+    padding: 25px;
+    margin-top: 1em;
+    width: 100vw;
+
+    .coin {
+      display: flex;
+      align-items: center;
+
+      
+
+      .btc {
+        font-size: 0.8rem;
+        font-weight: 900;
+      }
+
+      img {
+        height: 2em;
+        width: 2em;
+      }
+
+      .ht {
+        font-size: 20px;
+        margin-left: 10px;
+        font-size: 18px;
+        color: #333;
+      }
+    }
+
+
+  }
 
   &>* {
     margin-bottom: 20px;
   }
+  
+
+}
+@media (max-width: 600px) {
+    .Hcontainer{
+      .info {
+       display: flex;
+       flex-direction: column-reverse;
+    }
+    }
+    
 }
 
-.photo-user {
-  width: 8em;
-  height: 8em;
-}
+
+
 
 /* Styles for app-contact-page and app-statistic-page components (assuming these are custom components) */
 app-contact-page,
@@ -154,5 +195,5 @@ app-statistic-page {
     margin-bottom: 15px;
     color: #444;
   }
-}
-</style>
+  
+}</style>
