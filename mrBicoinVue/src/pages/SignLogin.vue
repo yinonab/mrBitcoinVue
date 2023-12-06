@@ -47,6 +47,8 @@ export default {
   // justify-content: center;
   align-items: center;
   padding: 20px;
+  background-color: #5d6e7f;
+  margin-bottom: .8em;
 
   h3 {
     font-size: 1.5em;

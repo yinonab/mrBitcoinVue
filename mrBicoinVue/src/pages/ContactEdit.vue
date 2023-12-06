@@ -7,7 +7,10 @@
             Name: <input v-model="contact.name" type="text" autofocus>
             Email: <input v-model="contact.email" type="text">
             Phone: <input v-model="contact.phone" type="text">
-            <button>Save</button>
+            <div class="action">
+                <RouterLink to="/contact"><button>Back</button></RouterLink>
+                <button>Save</button>
+            </div>
         </form>
     </section>
     <img v-else src="../assets/puff.svg" alt="" class="loader">
@@ -43,12 +46,17 @@ export default {
         }
     },
     async created() {
-        const contactId = this.$route.params.contactId
+        try {
+            const contactId = this.$route.params.contactId
         if (contactId) {
             this.contact = await contactService.get(contactId)
         } else {
             this.contact = contactService.getEmptyContact()
         }
+        } catch (err) {
+            console.error(err)
+        }
+        
 
     },
     computed:{
@@ -80,6 +88,12 @@ export default {
     widows: 50em;
     margin-left: 10%;
     margin-right: 10%;
+    .action{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap:.5em
+    }
 
     form {
         display: flex;
@@ -92,25 +106,25 @@ export default {
             padding: 10px;
             border-radius: 4px;
             border: 1px solid #ccc;
-            width: 100%;
+            width: 60vw;
             box-sizing: border-box;
         }
 
         button {
-            padding: 10px 20px;
-            font-size: 1em;
-            background-color: #007bff;
-            /* Use the header's button color */
-            color: #fff;
-            /* Set text color to white */
+            background-color: #6b93bb;
+            color: white;
             border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            border-radius: 5px;
 
             &:hover {
-                background-color: #0056b3;
-                /* Darken the button on hover */
+                background-color: #d7e0e8;
+                color:#0b0b0b
             }
         }
     }

@@ -2,7 +2,7 @@
     <section class="contact-index">
         <ContactFilter @filter="setFilterBy" />
         <RouterLink to="/edit">
-            <button>Add a Contact</button>
+            <button><img class="add" src="../assets/imgs/add-user.png" alt=""></button>
         </RouterLink>
         <ContactList @remove="removeContact" v-if="contacts" :contacts="filterContacts" />
         <img v-else src="../assets/puff.svg" alt="" class="loader">
@@ -67,7 +67,11 @@ export default {
   flex-direction: column;
   align-items: center;
   padding: 10px;
-  background-color: #f0f0f0; /* Change the background color */
+  background-color: #5d6e7f; 
+  margin-bottom: .8em;
+  .add{
+    width: 2.5em;
+  }
 }
 
 button {

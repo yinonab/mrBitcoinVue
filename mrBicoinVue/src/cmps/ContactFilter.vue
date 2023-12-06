@@ -31,5 +31,13 @@
     padding: 10px;
     background-color: lightgray;
     margin-block: 10px;
+    input[type="text"] {
+        padding: 8px;
+        // margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 250px;
+        font-size: 1em;
+}
 }
 </style>

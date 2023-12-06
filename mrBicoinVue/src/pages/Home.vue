@@ -1,18 +1,18 @@
 <template>
-  <main class="container">
+  <main class="Hcontainer">
     <div class="info" v-if="!loading"> <!-- Show content when not loading -->
       <div class="coins">
         <img class="photo-user" v-bind:src="imgUrl()" alt="user-img">
-        <p><b>Hello</b> {{ user ? user.name : '' }}</p> <!-- Display user's name if available -->
+        <p class="ht"><b>Hello</b> {{ user ? user.name : '' }}</p> <!-- Display user's name if available -->
 
       </div>
       <div class="coin">
         <img src="../assets/imgs/coins.png" alt="">
-        <p> <b>Your Balance</b> {{ balance }}</p> <!-- Display user's balance -->
+        <p class="ht"> <b>Your Balance</b> {{ balance }}</p> <!-- Display user's balance -->
       </div>
       <div class="coin">
         <img src="../assets/imgs/bitcoin.png" alt="">
-        <p> <b>Your Balance Rate is</b> {{ rate }}</p> <!-- Display the rate -->
+        <p class="ht"> <b>Your Balance Rate is</b> {{ rate }}<b class="btc"> BTC</b> </p> <!-- Display the rate -->
       </div>
       <div v-if="user.transactions && user.transactions.length > 0">
         <transactions-list :transactions="slicedTransactions"></transactions-list>
@@ -91,7 +91,7 @@ export default {
 </script>
 
 <style lang="scss">
-p {
+.ht {
   color: black;
 }
 
@@ -103,6 +103,10 @@ p {
 .coin {
   display: flex;
   align-items: center;
+  .btc{
+    font-size: 0.8rem;
+    font-weight: 900;
+  }
 
   img {
     height: 2em;
@@ -117,11 +121,12 @@ p {
   color: #333;
 }
 
-.container {
+.Hcontainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
+  background-color: #5d6e7f;
 
   &>* {
     margin-bottom: 20px;

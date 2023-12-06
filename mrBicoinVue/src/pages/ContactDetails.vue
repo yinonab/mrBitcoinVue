@@ -4,9 +4,10 @@
         <main class="main-details">
             <img class="photo" v-bind:src="imgUrl()" alt="user-img">
             <h2> <b> Name: </b>{{ contact.name }}</h2>
-            <h2><b>Phone: </b>{{ contact.phone }}</h2>
+            <h2><b>Phone: </b></h2><h2>{{ contact.phone }}</h2>
             <h2><b>Balance: </b>{{ contact.balance }}</h2>
-            <h2> <b> Email: </b></h2><h2 class="email">{{ contact.email }}</h2>
+            <h2> <b> Email: </b></h2>
+            <h2 class="email">{{ contact.email }}</h2>
 
             <RouterLink to="/contact">
                 <button>Back</button>
@@ -37,7 +38,12 @@ export default {
             return `https://robohash.org/${this.contact._id}?set=set5`
         },
         async getUser() {
-            return this.user = await userService.getLoggedInUser()
+            try {
+                return this.user = await userService.getLoggedInUser()
+
+            } catch (err) {
+                console.log(err)
+            }
         },
         getTransactions() {
             if (this.user && this.user.transactions) {
@@ -54,12 +60,17 @@ export default {
         }
     },
     async created() {
-        await this.getUser()
-        const contactId = this.$route.params.contactId
-        this.contact = await contactService.get(contactId)
-        this.getTransactions()
-        this.getMyTransactions()
-        console.log('this.transactions', this.transactions)
+        try {
+            await this.getUser()
+            const contactId = this.$route.params.contactId
+            this.contact = await contactService.get(contactId)
+            this.getTransactions()
+            this.getMyTransactions()
+            console.log('this.transactions', this.transactions)
+        } catch (err) {
+            console.log(err)
+        }
+
     },
     components: {
         TransactionsList,
@@ -82,14 +93,15 @@ export default {
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: #34495e;
+    background-color: #5d6e7f;
     /* Use the header's background color */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     widows: 50em;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-bottom: .8em;
+    // margin-left: 10%;
+    // margin-right: 10%;
 
     .main-details {
         display: flex;
@@ -107,21 +119,20 @@ export default {
         }
 
         button {
-            padding: 10px 20px;
-            font-size: 1em;
-            background-color: #007bff;
-            /* Use the header's button color */
-            color: #fff;
-            /* Set text color to white */
+            background-color: #6b93bb;
+            color: white;
             border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            border-radius: 5px;
 
             &:hover {
-                background-color: #0056b3;
-                /* Darken the button on hover */
+                background-color: #d7e0e8;
+                color:#0b0b0b
             }
         }
     }

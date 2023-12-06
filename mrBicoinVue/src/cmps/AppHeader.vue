@@ -1,6 +1,6 @@
 <template>
     <header class="app-header">
-        <a href="/"><h2>MrBitcoin</h2></a>
+        <a href="/home"><h2>MrBitcoin</h2></a>
         <nav>
         <RouterLink to="/contact"><img class="icons" src="../assets/imgs/users.png" alt=""></RouterLink> 
         <RouterLink to="/home"><img class="icons" src="../assets/imgs/home.png" alt=""></RouterLink> 
