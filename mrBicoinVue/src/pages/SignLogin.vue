@@ -1,6 +1,6 @@
 <template>
   <main class="signup-page">
-    <img class="bit" src="../assets/imgs/bitcoin.png" alt="">
+    <img class="wel-img" src="../assets/imgs/giphy.gif" alt="">
     <h3>Please enter your name</h3>
     <form class="title" @submit.prevent="getUserByName">
       <input type="text" placeholder="Enter your name" v-model="userName">
@@ -49,6 +49,11 @@ export default {
   padding: 20px;
   background-color: #5d6e7f;
   margin-bottom: .8em;
+  .wel-img {
+    width: 4em;
+    height: 4em;
+    margin: 0;
+  }
 
   h3 {
     font-size: 1.5em;

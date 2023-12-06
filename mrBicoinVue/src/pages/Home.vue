@@ -5,33 +5,38 @@
         <img src="../assets/imgs/giphy.gif" alt="">
       </section>
       <section>
-        <img class="photo-user" v-bind:src="imgUrl()" alt="user-img">
-      <div>
-      <div class="coins">
-        <p class="ht"><b>     Hello</b> {{ user ? user.name : '' }}</p> <!-- Display user's name if available -->
-      </div>
-      <div class="coin">
-        <img src="../assets/imgs/coins.png" alt="">
-        <p class="ht"> <b>Your Balance</b> {{ balance }}</p> <!-- Display user's balance -->
-      </div>
-      <div class="coin">
-        <img src="../assets/imgs/bitcoin.png" alt="">
-        <p class="ht"> <b>Your Balance Rate is</b> {{ rate }}<b class="btc"> BTC</b> </p> <!-- Display the rate -->
-      </div>
-    </div>
-      <div v-if="user.transactions && user.transactions.length > 0">
-        <transactions-list :transactions="slicedTransactions"></transactions-list>
-      </div>
+        <div v-if="!loading">
+          <img class="photo-user" v-bind:src="imgUrl()" alt="user-img">
+        </div>
+        <div v-else>
+          <img src="../assets/puff.svg" alt="" class="loader">
+        </div>
+        <div>
+          <div class="coins">
+            <p class="ht"><b> Hello</b> {{ user ? user.name : '' }}</p> <!-- Display user's name if available -->
+          </div>
+          <div class="coin">
+            <img src="../assets/imgs/coins.png" alt="">
+            <p class="ht"> <b>Your Balance</b> {{ balance }}</p> <!-- Display user's balance -->
+          </div>
+          <div class="coin">
+            <img src="../assets/imgs/bitcoin.png" alt="">
+            <p class="ht"> <b>Your Balance Rate is</b> {{ rate }}<b class="btc"> BTC</b> </p> <!-- Display the rate -->
+          </div>
+        </div>
+        <div v-if="user.transactions && user.transactions.length > 0">
+          <transactions-list :transactions="slicedTransactions"></transactions-list>
+        </div>
       </section>
-      
-     
+
+
     </div>
     <div v-else>
       <img src="../assets/puff.svg" alt="" class="loader">
     </div>
   </main>
   <article>
-    
+
   </article>
 </template>
 
@@ -113,14 +118,16 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin-top: 20px;
+  // margin-top: 20px;
   background-color: #5d6e7f;
   // padding-right: 1em;
   margin-bottom: 1em;
+ 
+
   .photo-user {
-        width: 15em;
-        height: 15em;
-      }
+    width: 15em;
+    height: 15em;
+  }
 
   .info {
     display: flex;
@@ -132,12 +139,13 @@ export default {
     padding: 25px;
     margin-top: 1em;
     width: 100vw;
+    height: 85vh;
 
     .coin {
       display: flex;
       align-items: center;
 
-      
+
 
       .btc {
         font-size: 0.8rem;
@@ -163,17 +171,18 @@ export default {
   &>* {
     margin-bottom: 20px;
   }
-  
+
 
 }
+
 @media (max-width: 600px) {
-    .Hcontainer{
-      .info {
-       display: flex;
-       flex-direction: column-reverse;
+  .Hcontainer {
+    .info {
+      display: flex;
+      flex-direction: column-reverse;
     }
-    }
-    
+  }
+
 }
 
 
@@ -195,5 +204,11 @@ app-statistic-page {
     margin-bottom: 15px;
     color: #444;
   }
-  
-}</style>
+
+}
+.loader{
+  display: flex;
+  justify-content: center;
+  width: 3em;
+}
+</style>

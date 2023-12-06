@@ -47,6 +47,23 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #5d6e7f;
+  button {
+  padding: 10px 20px;
+  margin-top: 10px; /* Space between buttons */
+  font-size: 1em;
+  background-color: #34495e; /* Use the header's background color */
+  color: #fff; /* Set text color to white */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #94b9de;
+    color: black; /* Darken the button on hover */
+  }
+}
 
   .wel-img {
     width: 4em;

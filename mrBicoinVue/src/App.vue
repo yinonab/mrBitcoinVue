@@ -33,6 +33,7 @@ export default {
 <style scoped>
 main {
   min-height: 87.59vh;
+  background-color: #5d6e7f;
 }
 .v-enter-active,
 .v-leave-active {
