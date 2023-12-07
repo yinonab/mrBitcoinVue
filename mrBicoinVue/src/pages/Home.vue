@@ -105,7 +105,7 @@ export default {
 
 .main-home {
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: center;
 	// margin-top: 20px;
 
