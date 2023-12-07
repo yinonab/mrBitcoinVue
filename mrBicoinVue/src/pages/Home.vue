@@ -1,43 +1,31 @@
 <template>
-  <main class="Hcontainer">
-    <div class="info" v-if="!loading"> <!-- Show content when not loading -->
-      <section>
-        <img src="../assets/imgs/giphy.gif" alt="">
-      </section>
-      <section>
-        <div v-if="!loading">
-          <img class="photo-user" v-bind:src="imgUrl()" alt="user-img">
-        </div>
-        <div v-else>
-          <img src="../assets/puff.svg" alt="" class="loader">
-        </div>
-        <div>
-          <div class="coins">
-            <p class="ht"><b> Hello</b> {{ user ? user.name : '' }}</p> <!-- Display user's name if available -->
-          </div>
-          <div class="coin">
-            <img src="../assets/imgs/coins.png" alt="">
-            <p class="ht"> <b>Your Balance</b> {{ balance }}</p> <!-- Display user's balance -->
-          </div>
-          <div class="coin">
-            <img src="../assets/imgs/bitcoin.png" alt="">
-            <p class="ht"> <b>Your Balance Rate is</b> {{ rate }}<b class="btc"> BTC</b> </p> <!-- Display the rate -->
-          </div>
-        </div>
-        <div v-if="user.transactions && user.transactions.length > 0">
-          <transactions-list :transactions="slicedTransactions"></transactions-list>
-        </div>
-      </section>
-
-
-    </div>
-    <div v-else>
-      <img src="../assets/puff.svg" alt="" class="loader">
-    </div>
-  </main>
-  <article>
-
-  </article>
+	<main class="main-home">
+		<div class="home-page" v-if="!loading">
+			<section class="bit-gif">
+				<img src="../assets/imgs/giphy.gif" alt="">
+			</section>
+			<section class="info">
+				<img v-bind:src="imgUrl()" alt="" class="user-img">
+				<div class="coin">
+					<p><strong>Hello</strong> {{ user ? user.name : 'guest' }} 😊</p>
+				</div>
+				<div class="coin">
+					<img class="btc-img" src="../assets/imgs/coins.png" alt="">
+					<p> <strong>Balance</strong> ${{ balance }}</p>
+				</div>
+				<div class="coin">
+					<img class="btc-img" src="../assets/imgs/bitcoin.png" alt="">
+					<p> <strong>Balance Rate</strong> {{ rate }} <small>BTC</small></p>
+				</div>
+				<div v-if="user.transactions && user.transactions.length > 0">
+					<transactions-list :transactions="slicedTransactions"></transactions-list>
+				</div>
+			</section>
+		</div>
+		<div v-else>
+			<img src="../assets/puff.svg" alt="" class="loader">
+		</div>
+	</main>
 </template>
 
 <script>
@@ -104,8 +92,77 @@ export default {
   }
 };
 </script>
-
 <style lang="scss">
+.home-page {
+	display: flex;
+	align-items: center;
+
+	.bit-gif {
+		width: 50%;
+		padding: 2em;
+	}
+}
+
+.main-home {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	// margin-top: 20px;
+
+	&>* {
+		margin-bottom: 20px;
+	}
+
+	.info {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+		// border: 1px solid black;
+		padding: 25px;
+		width: 50%;
+
+		.user-img {
+			width: 15em;
+			// height: 100px;
+		}
+
+		p {
+			font-size: 20px;
+			margin-left: 10px;
+			font-size: 18px;
+			color: #333;
+		}
+
+		.coin {
+			display: flex;
+			align-items: center;
+
+
+			.btc-img {
+				height: 2em;
+				width: 2em;
+			}
+		}
+	}
+}
+
+@media (max-width: 600px) {
+	.home-page {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		flex-direction: column-reverse;
+
+		.info{
+			width: 100%;
+			padding: 0;
+		}
+	}
+}
+</style>
+
+<!-- <style lang="scss">
 // .ht {
 //   color: black;
 // }
@@ -211,4 +268,4 @@ app-statistic-page {
   justify-content: center;
   width: 3em;
 }
-</style>
+</style> -->
